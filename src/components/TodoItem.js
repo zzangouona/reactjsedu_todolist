@@ -1,32 +1,33 @@
 import React, { Component } from 'react';
 import "./TodoItem.css"
-
+import { connect } from 'react-redux';
+import { removeTodo, toggleTodo } from '../actions';
 class TodoItem extends Component {
-    shouldComponentUpdate(nextProps, nextState) {
-        return this.props.checked !== nextProps.checked;
+    handleRemove = (id) => {
+        this.props.removeTodo(id);
     }
-
+    handleToggle = (todo) => {
+        this.props.toggleTodo(todo)
+    }
     render() {
-        const { text, checked, id, myToggle, myRemove } = this.props;
-
+        const { id, text, checked } = this.props;
         return (
-            <div className="todo-item" onClick={() => myToggle(id)}>
+            <div className="todo-item" onClick={() => {
+                const todo = { id, text, checked };
+                todo.checked = !todo.checked;
+                this.handleToggle(todo)
+            }}>
                 <div className="remove" onClick={(e) => {
-                    e.stopPropagation(); // myToggle 이 실행되지 않도록 함
-                    myRemove(id)
+                    e.stopPropagation(); // onToggle 이 실행되지 않도록 함
+                    this.handleRemove(id)
                 }
                 }>&times;</div>
-                {/* checked가 false 경우(완료) text-decoration: line-through */}
                 <div className={`todo-text ${checked && 'checked'}`}>
                     <div>{text}</div>
                 </div>
-                {
-                    checked && (<div className="check-mark">✓</div>)
-                }
+                {checked && (<div className="check-mark">✓</div>)}
             </div>
-
         );
     }
 }
-
-export default TodoItem;
+export default connect(null, { removeTodo, toggleTodo })(TodoItem);

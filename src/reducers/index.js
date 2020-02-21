@@ -1,4 +1,4 @@
-import { FETCH_TODOS, ADD_TODO } from '../actions';
+import { TOGGLE_TODO, FETCH_TODOS, ADD_TODO, REMOVE_TODO } from '../actions';
 
 const initialState = {
     todos: [
@@ -16,6 +16,10 @@ export const toDoReducer = (state = initialState, action) => {
         case FETCH_TODOS:
             return Object.assign({}, state, { todos: action.payload });
         case ADD_TODO:
+            return Object.assign({}, state, { todos: action.payload });
+        case REMOVE_TODO:
+            return Object.assign({}, state, { todos: action.payload });
+        case TOGGLE_TODO:
             return Object.assign({}, state, { todos: action.payload });
         default:
             return state;

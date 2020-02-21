@@ -55,3 +55,22 @@ export const removeTodo = id => {
             })
     }
 }
+
+//Action type 정의
+export const TOGGLE_TODO = "TOGGLE_TODO";
+export const toggleTodo = todo => {
+    return (dispatch) => {
+        console.log(todo)
+        axios.put(`${apiurl}}/${todo.id}`, todo)
+            .then(res => {
+                dispatch({
+                    type: TOGGLE_TODO,
+                    payload: res.data
+                })
+            })
+            .catch(error => {
+                console.log(error);
+                throw (error);
+            })
+    }
+}
