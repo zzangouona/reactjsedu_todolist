@@ -12,6 +12,7 @@ class TodoItem extends Component {
                     myRemove(id)
                 }
                 }>&times;</div>
+                {/* checked가 false 경우(완료) text-decoration: line-through */}
                 <div className={`todo-text ${checked && 'checked'}`}>
                     <div>{text}</div>
                 </div>

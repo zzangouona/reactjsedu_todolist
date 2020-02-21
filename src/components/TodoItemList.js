@@ -2,14 +2,24 @@ import React, { Component } from 'react';
 import TodoItem from './TodoItem';
 
 class TodoItemList extends Component {
-    
+
     render() {
-        const {todos, myToggle, myRemove} = this.props;
+        const { todos, myToggle, myRemove } = this.props;
+        const todoList = todos.map(
+            ({ id, text, checked }) => (
+                <TodoItem
+                    id={id}
+                    text={text}
+                    checked={checked}
+                    myToggle={myToggle}
+                    myRemove={myRemove}
+                    key={id}
+                />
+            )
+        );
         return (
             <div>
-                <TodoItem text="할일" checked={false}/>
-                <TodoItem text="할일1" checked={true}/>
-                <TodoItem text="할일2" checked={false}/>
+                {todoList}
             </div>
         );
     }
