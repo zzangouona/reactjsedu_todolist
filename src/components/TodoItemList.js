@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import TodoItem from './TodoItem';
+import { connect } from 'react-redux'
+import { fetchAllTodos } from '../actions'
 
 class TodoItemList extends Component {
 
-    shouldComponentUpdate(nextProps, nextState) {
-        return this.props.todos !== nextProps.todos;
+    componentDidMount() {
+        this.props.fetchAllTodos();
     }
     render() {
         const { todos, myToggle, myRemove } = this.props;
@@ -27,5 +29,9 @@ class TodoItemList extends Component {
         );
     }
 }
-
-export default TodoItemList;
+const mapStateToProps = state => {
+    return {
+        todos: state.todos
+    }
+}
+export default connect(mapStateToProps, { fetchAllTodos })(TodoItemList)
